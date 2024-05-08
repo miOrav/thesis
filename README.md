@@ -1,2 +1,2 @@
-#Skripti töökirjeldus
+# Skripti töökirjeldus
 Skript kõigepealt kontrollib, kas jooksutamist alustati 32-bit keskkonnas, kui jah, siis jätkab tööd 64-bitilises, et saada ligipääs täiendavale käsklusele (query). Seejärel defineerib ja lisab Remote Connection Services API funktsioonikutse, mida on vaja kasutajale GUI näitamiseks. Skript kontrollib, kas arvutis on hetkel aktiivne (sisselogitud) kasutaja; kui ei ole, siis lülib arvuti koheselt välja; kui on, siis käivitab väljalülimise 10-minutilise taimeriga. Kasutajale kuvatakse teade, et arvuti lülitub 10 minuti möödudes välja ning antakse valik ("yes"/"no") selle protsessi peatamiseks. Kui kasutaja valib "yes", peatub väljalülimine, kui "no", siis 10 minuti möödudes aruvti lülitub välja.
