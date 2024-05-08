@@ -1,7 +1,7 @@
 <#
 Pealkiri: 32-bit PowerShell sessiooni vahetamine 64-bit vastu
 Autor: Arjan Vroege
-Kuupäev: 07.02.2018
+KuupÃ¤ev: 07.02.2018
 Saadavus: https://web.archive.org/web/20230628202424/https://www.vroege.biz/?p=3970
 #>
 if ($env:PROCESSOR_ARCHITEW6432 -eq "AMD64") {
@@ -19,7 +19,7 @@ exit $lastexitcode
 <#
 Pealkiri: Remote Desktop Services API-st funktsiooni importimine
 Autor: boxdog
-Kuupäev: 25.01.2019
+KuupÃ¤ev: 25.01.2019
 Saadavus: https://stackoverflow.com/questions/54357542/msgbox-in-powershell-script-run-from-task-scheduler-not-working/54362903#54362903
 #>
 $typeDefinition = @"
@@ -56,9 +56,9 @@ Add-Type -TypeDefinition $typeDefinition
 
 
 <#
-Pealkiri: Aktiivse kasutaja ID pärimine
+Pealkiri: Aktiivse kasutaja ID pÃ¤rimine
 Autor: VVG
-Kuupäev: 22.05.2019
+KuupÃ¤ev: 22.05.2019
 Saadavus: https://stackoverflow.com/questions/56239473/powershell-interaction-between-system-user-and-logged-on-users
 #>
 $RawOuput = (quser) -replace '\s{2,}', ',' | ConvertFrom-Csv
@@ -73,24 +73,26 @@ Foreach ($session in $RawOuput) {
 
 
 <#
-Pealkiri: Arvuti väljalülimine, kasutajapoolse peatamisvõimalusega
+Pealkiri: Arvuti vÃ¤ljalÃ¼limine, kasutajapoolse peatamisvÃµimalusega
 Autor: Marti Orav
-Kuupäev: 27.04.2024
+KuupÃ¤ev: 27.04.2024
 #>
-# Põhjus sulgemiseks
+# PÃµhjus sulgemiseks
 $reason = "Energia kokkuhoid"
+$viiteaeg = 600
 
-# Kui pole aktiivset kasutajat, siis kohene väljalülimine.
+# Kui pole aktiivset kasutajat, siis kohene vÃ¤ljalÃ¼limine.
 if($sessionID -eq $null) {
     shutdown /s /f /t 0 /c $reason /d p:0:0
 }else{
-    # Kui on aktiivne kasutaja, siis ajalise viitega väljalülimine
-    shutdown /s /f /t 600 /c $reason /d p:0:0
+    # Kui on aktiivne kasutaja, siis ajalise viitega vÃ¤ljalÃ¼limine
+    shutdown /s /f /t $viiteaeg /c $reason /d p:0:0
     
-    # Kasutajalt sisendi küsimine, kas lülimine peatada
-    $vastus = [WTSMessage]::SendMessage($sessionID, "Sulgumisteade", "Arvuti sulgub 10 minuti jooksul. Kas soovid sulgumist peatada?", 60, 52)
+    # Kasutajalt sisendi kÃ¼simine, kas lÃ¼limine peatada
+    $vastus = [WTSMessage]::SendMessage($sessionID, "Sulgumisteade",
+    	"Arvuti sulgub varsti. Kas soovid sulgemist peatada?", $viiteaeg, 52)
 
-    # Jaatava vastuse korral lülimine peatatakse
+    # Jaatava vastuse korral lÃ¼limine peatatakse
     if($vastus -eq 6){
         shutdown /a
     }
