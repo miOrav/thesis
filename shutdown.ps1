@@ -79,7 +79,7 @@ Kuupäev: 27.04.2024
 #>
 # Põhjus sulgemiseks
 $reason = "Energia kokkuhoid"
-$viiteaeg = 600
+$viiteaeg = 600 # sekundid
 
 # Kui pole aktiivset kasutajat, siis kohene väljalülimine.
 if($sessionID -eq $null) {
